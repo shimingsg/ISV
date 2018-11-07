@@ -1,4 +1,4 @@
-from github import *
+from github import Github
 
 g = Github()
 repo_instances = {}
@@ -10,12 +10,12 @@ for rp in repos:
 		repo_instances[rp[0]]=g.get_repo(rp[0])
 	try:
 		issue = repo_instances[rp[0]].get_issue(number=rp[1])
-        print(issue.id)
-        print(issue.title)
-        print(issue.created_at)
-        print(issue.state)
-        print(issue.updated_at)
+		print(issue.id)
+		print(issue.title)
+		print(issue.created_at)
+		print(issue.state)
+		print(issue.updated_at)
 	except UnknownObjectException as e:
 		print(rp[1] + "except:" + e.data["message"])
 	except Exception as e:
-		print(rp[1] + "except:" + e.data["message"])
+		print(rp[1] + "except:" + e)
