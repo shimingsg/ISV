@@ -10,15 +10,12 @@ for rp in repos:
 		repo_instances[rp[0]]=g.get_repo(rp[0])
 	try:
 		issue = repo_instances[rp[0]].get_issue(number=rp[1])
-		print(issue.title)
+        print(issue.id)
+        print(issue.title)
+        print(issue.created_at)
+        print(issue.state)
+        print(issue.updated_at)
 	except UnknownObjectException as e:
 		print(rp[1] + "except:" + e.data["message"])
 	except Exception as e:
 		print(rp[1] + "except:" + e.data["message"])
-
-#issue = repo.get_issue(number=11)
-#github.GithubException.UnknownObjectException: 404 {'message': 'Not Found', 'documentation_url': 'https://developer.github.com/v3/issues/#get-a-single-issue'}
-
-
-
-
