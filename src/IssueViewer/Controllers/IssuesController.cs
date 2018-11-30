@@ -54,7 +54,7 @@ namespace IssueViewer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,RepoId,IssueId,Title,CreatedDateTime,LastUpdatedDateTime,State,Link")] Issue issue)
+        public async Task<IActionResult> Create([Bind("Id,RepoId,IssueId,Title,CreatedDateTime,LastUpdatedDateTime,ClosedDateTime,State,Link,Category")] Issue issue)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace IssueViewer.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,RepoId,IssueId,Title,CreatedDateTime,LastUpdatedDateTime,State,Link")] Issue issue)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RepoId,IssueId,Title,CreatedDateTime,LastUpdatedDateTime,ClosedDateTime,State,Link,Category")] Issue issue)
         {
             if (id != issue.Id)
             {

@@ -1,9 +1,7 @@
-import pymssql
+import sqlite3
 try:
-
-    conn = pymssql.connect(server="(localdb)\\mssqllocaldb",database="IssueStore")
-    cursor = conn.cursor()
-    cursor.execute("SELECT VERSION()")
+    pass
+ 
 except Exception as e:
     raise
 finally:
