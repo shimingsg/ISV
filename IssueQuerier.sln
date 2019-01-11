@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "IssueQuerier", "src\IssueQuerier\IssueQuerier.pyproj", "{304275CE-0CCD-4C9B-88EC-E432E82B087C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IssueViewer", "src\IssueViewer\IssueViewer.csproj", "{71F9188A-DEAB-42C2-97E2-1361B2B552BB}"
 EndProject
 Global
@@ -13,8 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{304275CE-0CCD-4C9B-88EC-E432E82B087C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{304275CE-0CCD-4C9B-88EC-E432E82B087C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71F9188A-DEAB-42C2-97E2-1361B2B552BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{71F9188A-DEAB-42C2-97E2-1361B2B552BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71F9188A-DEAB-42C2-97E2-1361B2B552BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
