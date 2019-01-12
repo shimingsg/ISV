@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IssueViewer.Utilities
+namespace IssueViewer.Models
 {
-    public class HtmlHelper
+    public class IVEntity
     {
-      
+        public int Id { get; set; }
     }
 }

@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using IssueViewer.Data;
+﻿using IssueViewer.Data;
 using IssueViewer.Models;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace IssueViewer
 {
@@ -26,7 +21,7 @@ namespace IssueViewer
                 try
                 {
                     var context = services.GetRequiredService<AppDbContext>();
-                    context.Database.Migrate();
+                    //context.Database.Migrate();
                     SeedData.Initialize(services);
                 }
                 catch (Exception ex)

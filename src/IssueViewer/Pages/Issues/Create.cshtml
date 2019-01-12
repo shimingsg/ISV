@@ -1,0 +1,73 @@
+﻿@page
+@model IssueViewer.Pages.Issues.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Issue</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Issue.RepoIdentier" class="control-label"></label>
+                <input asp-for="Issue.RepoIdentier" class="form-control" />
+                <span asp-validation-for="Issue.RepoIdentier" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Issue.IssueId" class="control-label"></label>
+                <input asp-for="Issue.IssueId" class="form-control" />
+                <span asp-validation-for="Issue.IssueId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Issue.Title" class="control-label"></label>
+                <input asp-for="Issue.Title" class="form-control" />
+                <span asp-validation-for="Issue.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Issue.CreatedDateTime" class="control-label"></label>
+                <input asp-for="Issue.CreatedDateTime" class="form-control" />
+                <span asp-validation-for="Issue.CreatedDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Issue.LastUpdatedDateTime" class="control-label"></label>
+                <input asp-for="Issue.LastUpdatedDateTime" class="form-control" />
+                <span asp-validation-for="Issue.LastUpdatedDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Issue.ClosedDateTime" class="control-label"></label>
+                <input asp-for="Issue.ClosedDateTime" class="form-control" />
+                <span asp-validation-for="Issue.ClosedDateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Issue.State" class="control-label"></label>
+                <input asp-for="Issue.State" class="form-control" />
+                <span asp-validation-for="Issue.State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Issue.Link" class="control-label"></label>
+                <input asp-for="Issue.Link" class="form-control" />
+                <span asp-validation-for="Issue.Link" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Issue.CategoryId" class="control-label"></label>
+                <select asp-for="Issue.CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

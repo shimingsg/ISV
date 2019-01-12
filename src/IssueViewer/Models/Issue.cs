@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace IssueViewer.Models
 {
-    public class Issue
+    public class Issue: IVEntity
     {
-        public int Id { get; set; }
-
         //[Required]
-        [Display(Name = "Repo Identier")]
+        [Display(Name = "Repo")]
         //[StringLength(75)]
         public string RepoIdentier { get; set; }
 
@@ -32,12 +30,15 @@ namespace IssueViewer.Models
         }
 
         [Display(Name = "Created")]
+        [DataType(DataType.DateTime)]
         public DateTime? CreatedDateTime { get; set; }
 
         [Display(Name = "Last Updated")]
+        [DataType(DataType.DateTime)]
         public DateTime? LastUpdatedDateTime { get; set; }
 
         [Display(Name = "Closed")]
+        [DataType(DataType.DateTime)]
         public DateTime? ClosedDateTime { get; set; }
 
         public int? State { get; set; }

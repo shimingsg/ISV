@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace IssueViewer.Models
 {
-    public class Category
+    public class Category: IVEntity
     {
-        public int Id { get; set; }
 
         public int? ParentId { get; set; }
 

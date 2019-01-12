@@ -12,12 +12,13 @@ namespace IssueViewer.Pages.Categories
     public class IndexModel : PageModel
     {
         private readonly AppDbContext _context;
-        public IList<Category> Categories { get; set; }
 
         public IndexModel(AppDbContext context)
         {
             _context = context;
         }
+
+        public IList<Category> Categories { get; set; }
 
         public async Task OnGetAsync()
         {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IssueViewer.Migrations
 {
-    public partial class InitEntities : Migration
+    public partial class InitializeEntites : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

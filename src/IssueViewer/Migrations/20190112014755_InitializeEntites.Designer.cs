@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IssueViewer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190110075840_InitEntities")]
-    partial class InitEntities
+    [Migration("20190112014755_InitializeEntites")]
+    partial class InitializeEntites
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028");
 
             modelBuilder.Entity("IssueViewer.Models.Category", b =>
                 {

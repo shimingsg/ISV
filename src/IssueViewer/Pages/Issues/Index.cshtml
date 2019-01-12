@@ -1,0 +1,78 @@
+﻿@page
+@model IssueViewer.Pages.Issues.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Issue[0].RepoIdentier)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Issue[0].IssueId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Issue[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Issue[0].CreatedDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Issue[0].LastUpdatedDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Issue[0].ClosedDateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Issue[0].State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Issue[0].Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Issue) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RepoIdentier)
+            </td>
+            <td>
+                <a href="@item.Link">@Html.DisplayFor(modelItem => item.IssueId)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastUpdatedDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClosedDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,73 @@
+﻿@page
+@model IssueViewer.Pages.Issues.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Issue</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.RepoIdentier)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Issue.RepoIdentier)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.IssueId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Issue.IssueId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Issue.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.CreatedDateTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Issue.CreatedDateTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.LastUpdatedDateTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Issue.LastUpdatedDateTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.ClosedDateTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Issue.ClosedDateTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.State)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Issue.State)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.Link)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Issue.Link)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Issue.Category)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Issue.Category.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Issue.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
