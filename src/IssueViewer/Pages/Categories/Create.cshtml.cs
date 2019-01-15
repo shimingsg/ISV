@@ -1,25 +1,27 @@
-﻿using IssueViewer.Data;
-using IssueViewer.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using IssueViewer.Data;
+using IssueViewer.Models;
 
 namespace IssueViewer.Pages.Categories
 {
-    public class CreateModel : IVPageModel
+    public class CreateModel : PageModel
     {
-        public CreateModel(AppDbContext context) :
-            base(context)
-        {
+        private readonly IssueViewer.Data.AppDbContext _context;
 
+        public CreateModel(IssueViewer.Data.AppDbContext context)
+        {
+            _context = context;
         }
 
         public IActionResult OnGet()
         {
-            Category = new Category();
+            ViewData["ParentId"] = new SelectList(_context.Categories, "Id", "Name");
             return Page();
         }
 

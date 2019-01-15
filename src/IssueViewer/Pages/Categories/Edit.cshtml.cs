@@ -1,20 +1,23 @@
-﻿using IssueViewer.Data;
-using IssueViewer.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using IssueViewer.Data;
+using IssueViewer.Models;
 
 namespace IssueViewer.Pages.Categories
 {
-    public class EditModel : IVPageModel
+    public class EditModel : PageModel
     {
-        public EditModel(AppDbContext context) :
-           base(context)
-        {
+        private readonly IssueViewer.Data.AppDbContext _context;
 
+        public EditModel(IssueViewer.Data.AppDbContext context)
+        {
+            _context = context;
         }
 
         [BindProperty]
@@ -27,12 +30,14 @@ namespace IssueViewer.Pages.Categories
                 return NotFound();
             }
 
-            Category = await _context.Categories.FirstOrDefaultAsync(m => m.Id == id);
+            Category = await _context.Categories
+                .Include(c => c.Parent).FirstOrDefaultAsync(m => m.Id == id);
 
             if (Category == null)
             {
                 return NotFound();
             }
+           ViewData["ParentId"] = new SelectList(_context.Categories, "Id", "Name");
             return Page();
         }
 
@@ -51,7 +56,7 @@ namespace IssueViewer.Pages.Categories
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EntityExists<Category>(Category.Id))
+                if (!CategoryExists(Category.Id))
                 {
                     return NotFound();
                 }
@@ -62,6 +67,11 @@ namespace IssueViewer.Pages.Categories
             }
 
             return RedirectToPage("./Index");
+        }
+
+        private bool CategoryExists(int id)
+        {
+            return _context.Categories.Any(e => e.Id == id);
         }
     }
 }

@@ -29,6 +29,8 @@ namespace IssueViewer.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ParentId");
+
                     b.ToTable("Categories");
                 });
 
@@ -60,6 +62,13 @@ namespace IssueViewer.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Issues");
+                });
+
+            modelBuilder.Entity("IssueViewer.Models.Category", b =>
+                {
+                    b.HasOne("IssueViewer.Models.Category", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId");
                 });
 
             modelBuilder.Entity("IssueViewer.Models.Issue", b =>

@@ -1,23 +1,24 @@
-﻿using IssueViewer.Data;
-using IssueViewer.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using IssueViewer.Data;
+using IssueViewer.Models;
 
 namespace IssueViewer.Pages.Categories
 {
-    public class DetailsModel : IVPageModel
+    public class DetailsModel : PageModel
     {
-        public DetailsModel(AppDbContext context) :
-           base(context)
-        {
+        private readonly IssueViewer.Data.AppDbContext _context;
 
+        public DetailsModel(IssueViewer.Data.AppDbContext context)
+        {
+            _context = context;
         }
 
-        [BindProperty]
         public Category Category { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -27,7 +28,8 @@ namespace IssueViewer.Pages.Categories
                 return NotFound();
             }
 
-            Category = await _context.Categories.FirstOrDefaultAsync(m => m.Id == id);
+            Category = await _context.Categories
+                .Include(c => c.Parent).FirstOrDefaultAsync(m => m.Id == id);
 
             if (Category == null)
             {

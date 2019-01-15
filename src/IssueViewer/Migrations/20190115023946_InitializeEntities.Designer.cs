@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IssueViewer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190112014755_InitializeEntites")]
-    partial class InitializeEntites
+    [Migration("20190115023946_InitializeEntities")]
+    partial class InitializeEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,6 +30,8 @@ namespace IssueViewer.Migrations
                     b.Property<int?>("ParentId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
 
                     b.ToTable("Categories");
                 });
@@ -62,6 +64,13 @@ namespace IssueViewer.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Issues");
+                });
+
+            modelBuilder.Entity("IssueViewer.Models.Category", b =>
+                {
+                    b.HasOne("IssueViewer.Models.Category", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId");
                 });
 
             modelBuilder.Entity("IssueViewer.Models.Issue", b =>

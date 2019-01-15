@@ -1,20 +1,22 @@
-﻿using IssueViewer.Data;
-using IssueViewer.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using IssueViewer.Data;
+using IssueViewer.Models;
 
 namespace IssueViewer.Pages.Categories
 {
-    public class DeleteModel : IVPageModel
+    public class DeleteModel : PageModel
     {
-        public DeleteModel(AppDbContext context) :
-            base(context)
-        {
+        private readonly IssueViewer.Data.AppDbContext _context;
 
+        public DeleteModel(IssueViewer.Data.AppDbContext context)
+        {
+            _context = context;
         }
 
         [BindProperty]
@@ -27,7 +29,8 @@ namespace IssueViewer.Pages.Categories
                 return NotFound();
             }
 
-            Category = await _context.Categories.FirstOrDefaultAsync(m => m.Id == id);
+            Category = await _context.Categories
+                .Include(c => c.Parent).FirstOrDefaultAsync(m => m.Id == id);
 
             if (Category == null)
             {

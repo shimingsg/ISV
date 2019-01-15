@@ -1,31 +1,30 @@
-﻿using IssueViewer.Data;
-using IssueViewer.Models;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using IssueViewer.Data;
+using IssueViewer.Models;
 
 namespace IssueViewer.Pages.Categories
 {
     public class IndexModel : PageModel
     {
-        private readonly AppDbContext _context;
+        private readonly IssueViewer.Data.AppDbContext _context;
 
-        public IndexModel(AppDbContext context)
+        public IndexModel(IssueViewer.Data.AppDbContext context)
         {
             _context = context;
         }
 
-        public IList<Category> Categories { get; set; }
+        public IList<Category> Category { get;set; }
 
         public async Task OnGetAsync()
         {
-            var categories = from m in _context.Categories
-                            select m;
-
-            Categories = await categories.ToListAsync();
+            Category = await _context.Categories
+                .Include(c => c.Parent).ToListAsync();
         }
     }
 }
