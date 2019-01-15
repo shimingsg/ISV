@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IssueViewer.Models
 {
-    public class Issue: IVEntity
+    public class Issue : IVEntity
     {
         //[Required]
         [Display(Name = "Repo")]
@@ -30,14 +30,17 @@ namespace IssueViewer.Models
         }
 
         [Display(Name = "Created")]
+        [DisplayFormat(DataFormatString = "{0:yy/MM/dd ss:mm:ss}")]
         [DataType(DataType.DateTime)]
         public DateTime? CreatedDateTime { get; set; }
 
         [Display(Name = "Last Updated")]
         [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:yy/MM/dd ss:mm:ss}")]
         public DateTime? LastUpdatedDateTime { get; set; }
 
         [Display(Name = "Closed")]
+        [DisplayFormat(DataFormatString = "{0:yy/MM/dd ss:mm:ss}")]
         [DataType(DataType.DateTime)]
         public DateTime? ClosedDateTime { get; set; }
 
