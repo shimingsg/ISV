@@ -8,16 +8,16 @@ using Microsoft.EntityFrameworkCore;
 using IssueViewer.Data;
 using IssueViewer.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using IssueViewer.Services;
 
 namespace IssueViewer.Pages.Issues
 {
-    public class IndexModel : PageModel
+    public class IndexModel : IVPageModel
     {
-        private readonly IssueViewer.Data.AppDbContext _context;
-
-        public IndexModel(IssueViewer.Data.AppDbContext context)
+        private readonly IGithubService _githubservice;
+        public IndexModel(AppDbContext context, IGithubService githubservice):base(context)
         {
-            _context = context;
+            _githubservice = githubservice;
         }
 
         public IList<Issue> Issue { get; set; }

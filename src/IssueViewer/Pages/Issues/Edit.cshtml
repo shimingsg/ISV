@@ -14,6 +14,11 @@
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="Issue.Link" class="control-label"></label>
+                <input asp-for="Issue.Link" class="form-control" />
+                <span asp-validation-for="Issue.Link" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Issue.RepoIdentier" class="control-label"></label>
                 <input asp-for="Issue.RepoIdentier" class="form-control" />
                 <span asp-validation-for="Issue.RepoIdentier" class="text-danger"></span>
@@ -48,11 +53,7 @@
                 <input asp-for="Issue.State" class="form-control" />
                 <span asp-validation-for="Issue.State" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Issue.Link" class="control-label"></label>
-                <input asp-for="Issue.Link" class="form-control" />
-                <span asp-validation-for="Issue.Link" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="Issue.CategoryId" class="control-label"></label>
                 <select asp-for="Issue.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>

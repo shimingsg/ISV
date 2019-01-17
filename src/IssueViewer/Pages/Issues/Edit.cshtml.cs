@@ -11,13 +11,13 @@ using IssueViewer.Models;
 
 namespace IssueViewer.Pages.Issues
 {
-    public class EditModel : PageModel
+    public class EditModel : IVPageModel
     {
-        private readonly IssueViewer.Data.AppDbContext _context;
+        //private readonly IssueViewer.Data.AppDbContext _context;
 
-        public EditModel(IssueViewer.Data.AppDbContext context)
+        public EditModel(AppDbContext context):base(context)
         {
-            _context = context;
+            //_context = context;
         }
 
         [BindProperty]
@@ -37,7 +37,7 @@ namespace IssueViewer.Pages.Issues
             {
                 return NotFound();
             }
-           ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id");
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
             return Page();
         }
 
@@ -56,7 +56,7 @@ namespace IssueViewer.Pages.Issues
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!IssueExists(Issue.Id))
+                if (!EntityExists<Issue>(Issue.Id))
                 {
                     return NotFound();
                 }
@@ -67,11 +67,6 @@ namespace IssueViewer.Pages.Issues
             }
 
             return RedirectToPage("./Index");
-        }
-
-        private bool IssueExists(int id)
-        {
-            return _context.Issues.Any(e => e.Id == id);
         }
     }
 }

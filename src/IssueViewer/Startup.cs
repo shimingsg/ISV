@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IssueViewer.Data;
+using IssueViewer.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -48,6 +49,8 @@ namespace IssueViewer
             });
 
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
+
+            services.AddSingleton<IGithubService, GithubService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
