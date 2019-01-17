@@ -10,13 +10,10 @@ using IssueViewer.Models;
 
 namespace IssueViewer.Pages.Categories
 {
-    public class CreateModel : PageModel
+    public class CreateModel : IVPageModel
     {
-        private readonly IssueViewer.Data.AppDbContext _context;
-
-        public CreateModel(IssueViewer.Data.AppDbContext context)
+        public CreateModel(IssueViewer.Data.AppDbContext context):base(context)
         {
-            _context = context;
         }
 
         public IActionResult OnGet()

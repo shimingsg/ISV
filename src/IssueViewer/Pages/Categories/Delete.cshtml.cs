@@ -10,13 +10,11 @@ using IssueViewer.Models;
 
 namespace IssueViewer.Pages.Categories
 {
-    public class DeleteModel : PageModel
+    public class DeleteModel : IVPageModel
     {
-        private readonly IssueViewer.Data.AppDbContext _context;
 
-        public DeleteModel(IssueViewer.Data.AppDbContext context)
+        public DeleteModel(IssueViewer.Data.AppDbContext context):base(context)
         {
-            _context = context;
         }
 
         [BindProperty]

@@ -10,16 +10,14 @@ using IssueViewer.Models;
 
 namespace IssueViewer.Pages.Categories
 {
-    public class IndexModel : PageModel
+    public class IndexModel : IVPageModel
     {
-        private readonly IssueViewer.Data.AppDbContext _context;
-
-        public IndexModel(IssueViewer.Data.AppDbContext context)
+        public IndexModel(IssueViewer.Data.AppDbContext context) : base(context)
         {
-            _context = context;
+
         }
 
-        public IList<Category> Category { get;set; }
+        public IList<Category> Category { get; set; }
 
         public async Task OnGetAsync()
         {

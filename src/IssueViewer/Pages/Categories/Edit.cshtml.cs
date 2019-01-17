@@ -11,13 +11,10 @@ using IssueViewer.Models;
 
 namespace IssueViewer.Pages.Categories
 {
-    public class EditModel : PageModel
+    public class EditModel : IVPageModel
     {
-        private readonly IssueViewer.Data.AppDbContext _context;
-
-        public EditModel(IssueViewer.Data.AppDbContext context)
+        public EditModel(IssueViewer.Data.AppDbContext context):base(context)
         {
-            _context = context;
         }
 
         [BindProperty]
@@ -56,7 +53,7 @@ namespace IssueViewer.Pages.Categories
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoryExists(Category.Id))
+                if (!EntityExists<Category>(Category.Id))
                 {
                     return NotFound();
                 }
@@ -67,11 +64,6 @@ namespace IssueViewer.Pages.Categories
             }
 
             return RedirectToPage("./Index");
-        }
-
-        private bool CategoryExists(int id)
-        {
-            return _context.Categories.Any(e => e.Id == id);
         }
     }
 }

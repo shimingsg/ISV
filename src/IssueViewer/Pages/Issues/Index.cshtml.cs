@@ -42,14 +42,25 @@ namespace IssueViewer.Pages.Issues
                     issues = issues.Where(s => s.CategoryId == categoryId);
                 }
             }
+
+            if(!string.IsNullOrEmpty(SearchIssueId))
+            {
+                var searchIssueId = Convert.ToInt32(SearchIssueId);
+                if (searchIssueId >= 0)
+                {
+                    issues = issues.Where(s => s.IssueId == searchIssueId);
+                }
+            }
+
             Issue = await issues.Include(i => i.Category).ToListAsync();
 
-            SelectingCategories = await _context.Categories.Select(a =>
-                                                                 new SelectListItem
-                                                                 {
-                                                                     Value = a.Id.ToString(),
-                                                                     Text = a.Name
-                                                                 }).ToListAsync();
+            SelectingCategories = 
+                await _context.Categories.Select(a =>
+                                                new SelectListItem
+                                                {
+                                                    Value = a.Id.ToString(),
+                                                    Text = a.Name
+                                                }).ToListAsync();
         }
     }
 }
