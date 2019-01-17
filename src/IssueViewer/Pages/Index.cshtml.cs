@@ -7,6 +7,7 @@ using IssueViewer.Models;
 using IssueViewer.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace IssueViewer.Pages
@@ -20,9 +21,21 @@ namespace IssueViewer.Pages
             _githubservice = githubservice;
         }
 
-        public void OnGet()
-        {
+        [BindProperty(SupportsGet = true)]
+        public string SelectedCategoryId { get; set; }
 
+        public List<SelectListItem> SelectingCategories { get; set; }
+
+
+        public async Task OnGetAsync()
+        {
+            SelectingCategories =
+                await _context.Categories.Select(a =>
+                                                new SelectListItem
+                                                {
+                                                    Value = a.Id.ToString(),
+                                                    Text = a.Name
+                                                }).ToListAsync();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -32,17 +45,27 @@ namespace IssueViewer.Pages
 
             issues = issues.Where(c => c.RepoIdentier.ToLower() == "github");
 
-            var all = await issues.Include(i => i.Category).ToListAsync();
+            if (!string.IsNullOrEmpty(SelectedCategoryId))
+            {
+                var categoryId = Convert.ToInt32(SelectedCategoryId);
+                if (categoryId >= 0)
+                {
+                    issues = issues.Where(s => s.CategoryId == categoryId);
+                }
+            }
+
+            var all = await issues.ToListAsync();
 
             foreach (var current in all)
             {
                 var issue = await _githubservice.GetGithubIssueAsync(current.Link);
                 if (issue != null)
                 {
+                    current.IssueId = issue.Number;
                     current.Title = issue.Title;
-                    current.CreatedDateTime = issue.CreatedAt.DateTime;
-                    current.LastUpdatedDateTime = issue.UpdatedAt?.DateTime;
-                    current.ClosedDateTime = issue.ClosedAt?.DateTime;
+                    current.IssueCreatedAt = issue.CreatedAt.DateTime;
+                    current.IssueLastUpdatedAt = issue.UpdatedAt?.DateTime;
+                    current.IssueClosedAt = issue.ClosedAt?.DateTime;
                     current.State = (int?)issue.State.Value;
                     _context.Attach(current).State = EntityState.Modified;
                     try

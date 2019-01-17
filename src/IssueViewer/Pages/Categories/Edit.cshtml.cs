@@ -44,7 +44,7 @@ namespace IssueViewer.Pages.Categories
             {
                 return Page();
             }
-
+            Category.LastUpdatedAt = DateTime.Now;
             _context.Attach(Category).State = EntityState.Modified;
 
             try

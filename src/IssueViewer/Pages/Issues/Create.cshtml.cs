@@ -21,7 +21,7 @@ namespace IssueViewer.Pages.Issues
 
         public IActionResult OnGet()
         {
-        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
             return Page();
         }
 
@@ -35,6 +35,8 @@ namespace IssueViewer.Pages.Issues
                 return Page();
             }
 
+            Issue.CreatedAt = DateTime.Now;
+            Issue.LastUpdatedAt = Issue.CreatedAt;
             _context.Issues.Add(Issue);
             await _context.SaveChangesAsync();
 

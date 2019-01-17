@@ -9,12 +9,12 @@ namespace IssueViewer.Models
 {
     public class Issue : IVEntity
     {
-        //[Required]
+        [Required]
         [Display(Name = "Repo")]
         //[StringLength(75)]
         public string RepoIdentier { get; set; }
 
-        public int IssueId { get; set; }
+        public int? IssueId { get; set; }
 
         public string Title { get; set; }
 
@@ -32,17 +32,17 @@ namespace IssueViewer.Models
         [Display(Name = "Created")]
         [DisplayFormat(DataFormatString = "{0:yy/MM/dd ss:mm:ss}")]
         [DataType(DataType.DateTime)]
-        public DateTime? CreatedDateTime { get; set; }
+        public DateTime? IssueCreatedAt { get; set; }
 
-        [Display(Name = "Last Updated")]
+        [Display(Name = "Updated")]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yy/MM/dd ss:mm:ss}")]
-        public DateTime? LastUpdatedDateTime { get; set; }
+        public DateTime? IssueLastUpdatedAt { get; set; }
 
         [Display(Name = "Closed")]
         [DisplayFormat(DataFormatString = "{0:yy/MM/dd ss:mm:ss}")]
         [DataType(DataType.DateTime)]
-        public DateTime? ClosedDateTime { get; set; }
+        public DateTime? IssueClosedAt { get; set; }
 
         public int? State { get; set; }
 

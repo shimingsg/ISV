@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IssueViewer.Migrations
 {
-    public partial class InitializeEntities : Migration
+    public partial class InitializeEntites : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,6 +13,8 @@ namespace IssueViewer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    LastUpdatedAt = table.Column<DateTime>(nullable: false),
                     ParentId = table.Column<int>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true)
@@ -34,12 +36,14 @@ namespace IssueViewer.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    RepoIdentier = table.Column<string>(nullable: true),
-                    IssueId = table.Column<int>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    LastUpdatedAt = table.Column<DateTime>(nullable: false),
+                    RepoIdentier = table.Column<string>(nullable: false),
+                    IssueId = table.Column<int>(nullable: true),
                     Title = table.Column<string>(nullable: true),
-                    CreatedDateTime = table.Column<DateTime>(nullable: true),
-                    LastUpdatedDateTime = table.Column<DateTime>(nullable: true),
-                    ClosedDateTime = table.Column<DateTime>(nullable: true),
+                    IssueCreatedAt = table.Column<DateTime>(nullable: true),
+                    IssueLastUpdatedAt = table.Column<DateTime>(nullable: true),
+                    IssueClosedAt = table.Column<DateTime>(nullable: true),
                     State = table.Column<int>(nullable: true),
                     Link = table.Column<string>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false)

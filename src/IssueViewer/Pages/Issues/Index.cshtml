@@ -35,13 +35,13 @@
                 @Html.DisplayNameFor(model => model.Issue[0].Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Issue[0].CreatedDateTime)
+                @Html.DisplayNameFor(model => model.Issue[0].IssueCreatedAt)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Issue[0].LastUpdatedDateTime)
+                @Html.DisplayNameFor(model => model.Issue[0].IssueLastUpdatedAt)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Issue[0].ClosedDateTime)
+                @Html.DisplayNameFor(model => model.Issue[0].IssueClosedAt)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Issue[0].State)
@@ -49,43 +49,49 @@
             <th>
                 @Html.DisplayNameFor(model => model.Issue[0].Category)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Issue[0].LastUpdatedAt)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Issue)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RepoIdentier)
-                </td>
-                <td>
-                    <a href="@item.Link">@Html.DisplayFor(modelItem => item.IssueId)</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ShortTitle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedDateTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastUpdatedDateTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ClosedDateTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.State)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.Name)
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RepoIdentier)
+            </td>
+            <td>
+                <a href="@item.Link">@Html.DisplayFor(modelItem => item.IssueId)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IssueCreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IssueLastUpdatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IssueClosedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastUpdatedAt)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

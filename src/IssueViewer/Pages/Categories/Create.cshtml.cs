@@ -31,7 +31,7 @@ namespace IssueViewer.Pages.Categories
             {
                 return Page();
             }
-
+            Category.CreatedAt = DateTime.Now;
             _context.Categories.Add(Category);
             await _context.SaveChangesAsync();
 

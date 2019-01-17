@@ -10,6 +10,9 @@
 </div>
 
 <form method="post">
+    <select asp-for="SelectedCategoryId" asp-items="Model.SelectingCategories">
+        <option value="">All</option>
+    </select>
     <div class="form-group">
         <input type="submit" value="Update" class="btn btn-default" />
     </div>

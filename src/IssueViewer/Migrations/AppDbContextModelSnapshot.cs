@@ -21,7 +21,11 @@ namespace IssueViewer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreatedAt");
+
                     b.Property<string>("Description");
+
+                    b.Property<DateTime>("LastUpdatedAt");
 
                     b.Property<string>("Name");
 
@@ -41,17 +45,22 @@ namespace IssueViewer.Migrations
 
                     b.Property<int>("CategoryId");
 
-                    b.Property<DateTime?>("ClosedDateTime");
+                    b.Property<DateTime>("CreatedAt");
 
-                    b.Property<DateTime?>("CreatedDateTime");
+                    b.Property<DateTime?>("IssueClosedAt");
 
-                    b.Property<int>("IssueId");
+                    b.Property<DateTime?>("IssueCreatedAt");
 
-                    b.Property<DateTime?>("LastUpdatedDateTime");
+                    b.Property<int?>("IssueId");
+
+                    b.Property<DateTime?>("IssueLastUpdatedAt");
+
+                    b.Property<DateTime>("LastUpdatedAt");
 
                     b.Property<string>("Link");
 
-                    b.Property<string>("RepoIdentier");
+                    b.Property<string>("RepoIdentier")
+                        .IsRequired();
 
                     b.Property<int?>("State");
 

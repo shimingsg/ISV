@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IssueViewer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190115023946_InitializeEntities")]
-    partial class InitializeEntities
+    [Migration("20190117094524_InitializeEntites")]
+    partial class InitializeEntites
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,11 @@ namespace IssueViewer.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreatedAt");
+
                     b.Property<string>("Description");
+
+                    b.Property<DateTime>("LastUpdatedAt");
 
                     b.Property<string>("Name");
 
@@ -43,17 +47,22 @@ namespace IssueViewer.Migrations
 
                     b.Property<int>("CategoryId");
 
-                    b.Property<DateTime?>("ClosedDateTime");
+                    b.Property<DateTime>("CreatedAt");
 
-                    b.Property<DateTime?>("CreatedDateTime");
+                    b.Property<DateTime?>("IssueClosedAt");
 
-                    b.Property<int>("IssueId");
+                    b.Property<DateTime?>("IssueCreatedAt");
 
-                    b.Property<DateTime?>("LastUpdatedDateTime");
+                    b.Property<int?>("IssueId");
+
+                    b.Property<DateTime?>("IssueLastUpdatedAt");
+
+                    b.Property<DateTime>("LastUpdatedAt");
 
                     b.Property<string>("Link");
 
-                    b.Property<string>("RepoIdentier");
+                    b.Property<string>("RepoIdentier")
+                        .IsRequired();
 
                     b.Property<int?>("State");
 

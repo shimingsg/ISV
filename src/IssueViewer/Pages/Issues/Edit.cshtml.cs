@@ -15,7 +15,7 @@ namespace IssueViewer.Pages.Issues
     {
         //private readonly IssueViewer.Data.AppDbContext _context;
 
-        public EditModel(AppDbContext context):base(context)
+        public EditModel(AppDbContext context) : base(context)
         {
             //_context = context;
         }
@@ -47,7 +47,7 @@ namespace IssueViewer.Pages.Issues
             {
                 return Page();
             }
-
+            Issue.LastUpdatedAt = DateTime.Now;
             _context.Attach(Issue).State = EntityState.Modified;
 
             try

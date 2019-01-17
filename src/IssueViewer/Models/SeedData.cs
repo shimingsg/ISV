@@ -14,23 +14,61 @@ namespace IssueViewer.Models
         {
             using (var context = new AppDbContext(serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>()))
             {
-                if (context.Categories.Any())
+                if (!context.Categories.Any())
                 {
-                    return;   // DB has been seeded
+                    context.Categories.AddRange(GenerateCategories());
+                    context.SaveChanges();
                 }
 
-                context.Categories.AddRange(
-                    new Category
-                    {
-                        Name = "E2E"
-                    },
+                if (!context.Issues.Any())
+                {
+                    context.Issues.AddRange(GenerateIssues());
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        private static List<Issue> GenerateIssues()
+        {
+            return new List<Issue>()
+            {
+                new Issue
+                {
+                    RepoIdentier="github",
+                    Link = "https://github.com/Microsoft/PTVS/issues/4780"
+                },
+                new Issue
+                {
+                    RepoIdentier="github",
+                    Link = "https://github.com/Microsoft/PTVS/issues/4781"
+                },
+                new Issue
+                {
+                    RepoIdentier="github",
+                    Link = "https://github.com/Microsoft/PTVS/issues/4784"
+                }
+            };
+        }
+
+        private static List<Category> GenerateCategories()
+        {
+            return new List<Category>()
+            {
+                new Category
+                {
+                    Name = "E2E"
+                },
                     new Category
                     {
                         Name = "Unit Test"
                     },
                     new Category
                     {
-                        Name = "Python Tool"
+                        Name = "PTVS"
+                    },
+                    new Category
+                    {
+                        Name = "PVSC"
                     },
                     new Category
                     {
@@ -39,9 +77,10 @@ namespace IssueViewer.Models
                     new Category
                     {
                         Name = "ci2.dot.net"
-                    });
-                context.SaveChanges();
-            }
+                    }
+            };
+
+
         }
     }
 }
