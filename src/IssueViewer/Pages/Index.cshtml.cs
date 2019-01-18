@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using IssueViewer.Data;
 using IssueViewer.Models;
 using IssueViewer.Services;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,10 +18,15 @@ namespace IssueViewer.Pages
     public class IndexModel : IssueViewer.Models.IVPageModel
     {
         private readonly IGithubService _githubservice;
+        private IHostingEnvironment _env;
 
-        public IndexModel(AppDbContext context, IGithubService githubservice) : base(context)
+        public IndexModel(AppDbContext context,
+            IGithubService githubservice,
+            IHostingEnvironment env)
+            : base(context)
         {
             _githubservice = githubservice;
+            _env = env;
         }
 
         [BindProperty(SupportsGet = true)]
@@ -26,8 +34,7 @@ namespace IssueViewer.Pages
 
         public List<SelectListItem> SelectingCategories { get; set; }
 
-
-        public async Task OnGetAsync()
+        private async Task GetCategories()
         {
             SelectingCategories =
                 await _context.Categories.Select(a =>
@@ -38,7 +45,12 @@ namespace IssueViewer.Pages
                                                 }).ToListAsync();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task OnGetAsync()
+        {
+            await GetCategories();
+        }
+
+        public async Task<IActionResult> OnPostUpdateSelectedAsync()
         {
             var issues = from m in _context.Issues
                          select m;
@@ -87,6 +99,43 @@ namespace IssueViewer.Pages
             }
 
             return RedirectToPage("./Issues/Index");
+        }
+
+        [BindProperty]
+        public IFormFile FileUpload { get; set; }
+
+        public async Task<IActionResult> OnPostImportAsync()
+        {
+            if (FileUpload == null)
+            {
+                this.ModelState.AddModelError("", "OnPostImportAsync test error");
+                await GetCategories();
+                return Page();
+            }
+            using (var reader = new StreamReader(FileUpload.OpenReadStream()))
+            {
+                var result = await reader.ReadToEndAsync();
+                if (!string.IsNullOrEmpty(result))
+                {
+                    this.ModelState.AddModelError("", result);
+                    await GetCategories();
+                    return Page();
+                    //return RedirectToPage("./Issues/Index");
+                }
+
+                this.ModelState.AddModelError("", "no content in file");
+                await GetCategories();
+                return Page();
+            }
+            //_env.ContentRootPath //Application Base Path
+            //_env.WebRootPath //wwwroot folder path
+        }
+
+        public async Task<IActionResult> OnPostExportAsync()
+        {
+            this.ModelState.AddModelError("", "OnExportAsync test error");
+            await GetCategories();
+            return Page();
         }
     }
 }

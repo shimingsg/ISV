@@ -36,19 +36,19 @@ namespace IssueViewer
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("Sqlite")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                .AddRazorPagesOptions(options=> {
-                    options.Conventions.AuthorizePage("/Categories");
-                    options.Conventions.AllowAnonymousToPage("/Issues");
-                }); 
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                //.AddRazorPagesOptions(options=> {
+                //    options.Conventions.AuthorizePage("/Categories");
+                //    options.Conventions.AllowAnonymousToPage("/Issues");
+                //}); 
 
-            services.Configure<IISOptions>(iis =>
-            {
-                iis.AuthenticationDisplayName = "Windows";
-                iis.AutomaticAuthentication = true;
-            });
+            //services.Configure<IISOptions>(iis =>
+            //{
+            //    iis.AuthenticationDisplayName = "Windows";
+            //    iis.AutomaticAuthentication = true;
+            //});
 
-            services.AddAuthentication(IISDefaults.AuthenticationScheme);
+            //services.AddAuthentication(IISDefaults.AuthenticationScheme);
 
             services.AddSingleton<IGithubService, GithubService>();
         }
@@ -69,7 +69,7 @@ namespace IssueViewer
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseAuthentication();
+            //app.UseAuthentication();
             app.UseMvc();
         }
     }

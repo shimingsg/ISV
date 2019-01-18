@@ -48,6 +48,7 @@ namespace IssueViewer.Models
 
         public string Link { get; set; }
 
+        [Display(Name = "Category")]
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
