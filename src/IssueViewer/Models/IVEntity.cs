@@ -11,12 +11,12 @@ namespace IssueViewer.Models
         public int Id { get; set; }
 
         [Display(Name = "Created At")]
-        [DisplayFormat(DataFormatString = "{0:yy/MM/dd ss:mm:ss}")]
+        [DisplayFormat(DataFormatString = "{0:yy/MM/dd hh:mm:ss}")]
         [DataType(DataType.DateTime)]
         public DateTime CreatedAt { get; set; }
 
         [Display(Name = "Updated At")]
-        [DisplayFormat(DataFormatString = "{0:yy/MM/dd ss:mm:ss}")]
+        [DisplayFormat(DataFormatString = "{0:yy/MM/dd hh:mm:ss}")]
         [DataType(DataType.DateTime)]
         public DateTime LastUpdatedAt { get; set; }
     }
