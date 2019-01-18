@@ -34,7 +34,7 @@ namespace IssueViewer.Pages
 
         public List<SelectListItem> SelectingCategories { get; set; }
 
-        private async Task GetCategories()
+        private async Task GetCategoriesAsync()
         {
             SelectingCategories =
                 await _context.Categories.Select(a =>
@@ -47,7 +47,7 @@ namespace IssueViewer.Pages
 
         public async Task OnGetAsync()
         {
-            await GetCategories();
+            await GetCategoriesAsync();
         }
 
         public async Task<IActionResult> OnPostUpdateSelectedAsync()
@@ -109,7 +109,7 @@ namespace IssueViewer.Pages
             if (FileUpload == null)
             {
                 this.ModelState.AddModelError("", "OnPostImportAsync test error");
-                await GetCategories();
+                await GetCategoriesAsync();
                 return Page();
             }
             using (var reader = new StreamReader(FileUpload.OpenReadStream()))
@@ -118,13 +118,13 @@ namespace IssueViewer.Pages
                 if (!string.IsNullOrEmpty(result))
                 {
                     this.ModelState.AddModelError("", result);
-                    await GetCategories();
+                    await GetCategoriesAsync();
                     return Page();
                     //return RedirectToPage("./Issues/Index");
                 }
 
-                this.ModelState.AddModelError("", "no content in file");
-                await GetCategories();
+                ModelState.AddModelError("", "no content in file");
+                await GetCategoriesAsync();
                 return Page();
             }
             //_env.ContentRootPath //Application Base Path
@@ -134,7 +134,7 @@ namespace IssueViewer.Pages
         public async Task<IActionResult> OnPostExportAsync()
         {
             this.ModelState.AddModelError("", "OnExportAsync test error");
-            await GetCategories();
+            await GetCategoriesAsync();
             return Page();
         }
     }
