@@ -30,17 +30,17 @@ namespace IssueViewer.Models
         }
 
         [Display(Name = "Created")]
-        [DisplayFormat(DataFormatString = "{0:yy/MM/dd hh:mm:ss}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm:ss}")]
         [DataType(DataType.DateTime)]
         public DateTime? IssueCreatedAt { get; set; }
 
         [Display(Name = "Updated")]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:yy/MM/dd hh:mm:ss}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm:ss}")]
         public DateTime? IssueLastUpdatedAt { get; set; }
 
         [Display(Name = "Closed")]
-        [DisplayFormat(DataFormatString = "{0:yy/MM/dd hh:mm:ss}")]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm:ss}")]
         [DataType(DataType.DateTime)]
         public DateTime? IssueClosedAt { get; set; }
 

@@ -114,28 +114,95 @@ namespace IssueViewer.Pages
             }
             using (var reader = new StreamReader(FileUpload.OpenReadStream()))
             {
-                var result = await reader.ReadToEndAsync();
-                if (!string.IsNullOrEmpty(result))
+                var issuesFromCSV = CommonUtilities.ReadCSV(reader);
+
+                if (issuesFromCSV.Count() <= 0)
                 {
-                    this.ModelState.AddModelError("", result);
+                    ModelState.AddModelError("", "no data in file");
                     await GetCategoriesAsync();
                     return Page();
-                    //return RedirectToPage("./Issues/Index");
                 }
 
-                ModelState.AddModelError("", "no content in file");
-                await GetCategoriesAsync();
-                return Page();
+                var issues = from m in _context.Issues
+                             select m;
+                var issuesInDB = await issues.ToListAsync();
+                var except = issuesFromCSV.Except(issuesInDB, new IssueComparer());
+                if(except.Count()>0)
+                {
+                    foreach (var i in except)
+                    {
+                        i.CreatedAt = DateTime.Now;
+                        i.LastUpdatedAt = i.CreatedAt;
+                        _context.Issues.Add(i);
+                    }
+
+                    await _context.SaveChangesAsync();
+
+                    this.ModelState.AddModelError("", $"{except.Count()} records imported from csv file.");
+                }
+                else
+                {
+                    this.ModelState.AddModelError("", "No data in csv file.");
+                }
+                //this.ModelState.AddModelError("", result);
+
+                //return RedirectToPage("./Issues/Index");
+
+
             }
+
+            await GetCategoriesAsync();
+            return Page();
             //_env.ContentRootPath //Application Base Path
             //_env.WebRootPath //wwwroot folder path
         }
 
         public async Task<IActionResult> OnPostExportAsync()
         {
-            this.ModelState.AddModelError("", "OnExportAsync test error");
+            var issues = from m in _context.Issues
+                         select m;
+            issues = issues.Where(c => c.RepoIdentier.ToLower() == "github");
+
+            var all = await issues.ToListAsync();
+            var fileName = $"exported_{DateTime.Now.ToString("yyyyMMddhhmmss")}.csv";
+            var path = Path.Combine(_env.WebRootPath, "output", fileName);
+            try
+            {
+                CommonUtilities.WriteCSV(all, path);
+                return File($"/output/{fileName}", "application/octet-stream", fileName);
+                //return File(stream, "application/octet-stream", "Reports.csv");
+            }
+            catch (Exception ex)
+            {
+                this.ModelState.AddModelError("", ex.Message);
+            }
+
             await GetCategoriesAsync();
             return Page();
         }
     }
+
+    public class IssueComparer : IEqualityComparer<Issue>
+    {
+        public bool Equals(Issue x, Issue y)
+        {
+            if (Object.ReferenceEquals(x, y)) return true;
+
+            if (Object.ReferenceEquals(x, null)
+                || Object.ReferenceEquals(y, null))
+                return false;
+
+            return x.Link.Trim().ToLower() == y.Link.Trim().ToLower();
+        }
+
+        public int GetHashCode(Issue issue)
+        {
+            if (Object.ReferenceEquals(issue, null)) return 0;
+
+            int hashIssueLink = issue.Link == null ? 0 : issue.Link.GetHashCode();
+
+            return hashIssueLink;
+        }
+    }
+
 }

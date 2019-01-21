@@ -330,3 +330,4 @@ ASALocalRun/
 .mfractor/
 /src/env
 *.db
+*.csv

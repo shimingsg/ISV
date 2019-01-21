@@ -52,6 +52,8 @@ namespace IssueViewer.Pages.Issues
                 }
             }
 
+            issues = issues.OrderByDescending(s => s.LastUpdatedAt);
+
             Issue = await issues.Include(i => i.Category).ToListAsync();
 
             SelectingCategories = 
