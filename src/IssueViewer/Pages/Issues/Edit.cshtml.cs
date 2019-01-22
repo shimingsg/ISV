@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IssueViewer.Data;
 using IssueViewer.Models;
+using IssueViewer.Services;
 
 namespace IssueViewer.Pages.Issues
 {
@@ -38,6 +39,7 @@ namespace IssueViewer.Pages.Issues
                 return NotFound();
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+            ViewData["StateId"] = CommonUtilities.GetSelectListFor<State>();
             return Page();
         }
 

@@ -17,7 +17,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Partials\" />
     <Folder Include="wwwroot\output\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Issues\Create.cshtml" />
+    <None Include="Pages\Issues\Delete.cshtml" />
+    <None Include="Pages\Issues\Details.cshtml" />
+    <None Include="Pages\Issues\Edit.cshtml" />
+    <None Include="Pages\Issues\Index.cshtml" />
+    <None Include="Pages\Issues\Update.cshtml" />
   </ItemGroup>
 
 </Project>

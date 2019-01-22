@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using IssueViewer.Data;
 using IssueViewer.Models;
+using IssueViewer.Services;
 
 namespace IssueViewer.Pages.Issues
 {
@@ -22,6 +23,7 @@ namespace IssueViewer.Pages.Issues
         public IActionResult OnGet()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name");
+            ViewData["StateId"] = CommonUtilities.GetSelectListFor<State>();
             return Page();
         }
 

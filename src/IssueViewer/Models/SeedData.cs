@@ -19,35 +19,7 @@ namespace IssueViewer.Models
                     context.Categories.AddRange(GenerateCategories());
                     context.SaveChanges();
                 }
-
-                if (!context.Issues.Any())
-                {
-                    context.Issues.AddRange(GenerateIssues());
-                    context.SaveChanges();
-                }
             }
-        }
-
-        private static List<Issue> GenerateIssues()
-        {
-            return new List<Issue>()
-            {
-                new Issue
-                {
-                    RepoIdentier="github",
-                    Link = "https://github.com/Microsoft/PTVS/issues/4780"
-                },
-                new Issue
-                {
-                    RepoIdentier="github",
-                    Link = "https://github.com/Microsoft/PTVS/issues/4781"
-                },
-                new Issue
-                {
-                    RepoIdentier="github",
-                    Link = "https://github.com/Microsoft/PTVS/issues/4784"
-                }
-            };
         }
 
         private static List<Category> GenerateCategories()
@@ -58,26 +30,22 @@ namespace IssueViewer.Models
                 {
                     Name = "E2E"
                 },
-                    new Category
-                    {
-                        Name = "Unit Test"
-                    },
-                    new Category
-                    {
-                        Name = "PTVS"
-                    },
-                    new Category
-                    {
-                        Name = "PVSC"
-                    },
-                    new Category
-                    {
-                        Name = "ci.dot.net"
-                    },
-                    new Category
-                    {
-                        Name = "ci2.dot.net"
-                    }
+                new Category
+                {
+                    Name = "Unit Test"
+                },
+                new Category
+                {
+                    Name = "Python Tool"
+                },
+                new Category
+                {
+                    Name = "CI Jenkins"
+                },
+                new Category
+                {
+                    Name = "Core Perf"
+                }
             };
 
 

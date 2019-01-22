@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IssueViewer.Migrations
 {
-    public partial class InitializeEntites : Migration
+    public partial class InitEntites : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,7 +44,7 @@ namespace IssueViewer.Migrations
                     IssueCreatedAt = table.Column<DateTime>(nullable: true),
                     IssueLastUpdatedAt = table.Column<DateTime>(nullable: true),
                     IssueClosedAt = table.Column<DateTime>(nullable: true),
-                    State = table.Column<int>(nullable: true),
+                    State = table.Column<int>(nullable: false),
                     Link = table.Column<string>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false)
                 },

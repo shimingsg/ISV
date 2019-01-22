@@ -1,6 +1,7 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using IssueViewer.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -48,6 +49,20 @@ namespace IssueViewer.Services
                 Map(m => m.CategoryId);
             }
 
+        }
+
+        public static SelectList GetSelectListFor<T>() where T : struct
+        {
+            var t = typeof(T);
+            if (!t.IsEnum)
+            {
+                return null;
+            }
+
+            var values = Enum.GetValues(typeof(T)).Cast<T>()
+                   .Select(e => new { Id = Convert.ToInt32(e), Name = Enum.GetName(t,e) });
+
+            return new SelectList(values, "Id", "Name");
         }
     }
 }

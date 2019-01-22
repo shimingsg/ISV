@@ -36,11 +36,16 @@ namespace IssueViewer
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("Sqlite")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-                //.AddRazorPagesOptions(options=> {
-                //    options.Conventions.AuthorizePage("/Categories");
-                //    options.Conventions.AllowAnonymousToPage("/Issues");
-                //}); 
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddRazorPagesOptions(options =>
+                 {
+                     //options.Conventions.AuthorizePage("/Categories");
+                     //options.Conventions.AllowAnonymousToPage("/Issues");
+                     //options.Conventions.AddPageRoute("/Issues/Index", ""); 
+                 })
+                 .AddRazorOptions(options=> {
+                     options.AreaPageViewLocationFormats.Add("/Pages/Partials/{0}.cshtml");
+                 });
 
             //services.Configure<IISOptions>(iis =>
             //{

@@ -62,7 +62,7 @@ namespace IssueViewer.Migrations
                     b.Property<string>("RepoIdentier")
                         .IsRequired();
 
-                    b.Property<int?>("State");
+                    b.Property<int>("State");
 
                     b.Property<string>("Title");
 

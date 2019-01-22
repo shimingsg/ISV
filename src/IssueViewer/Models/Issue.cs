@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -44,7 +45,8 @@ namespace IssueViewer.Models
         [DataType(DataType.DateTime)]
         public DateTime? IssueClosedAt { get; set; }
 
-        public int? State { get; set; }
+        [DefaultValue(State.Unknown)]
+        public State State { get; set; }
 
         public string Link { get; set; }
 
@@ -52,5 +54,15 @@ namespace IssueViewer.Models
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
+    }
+
+    public enum State
+    {
+        [Display(Name = "Unknown")]
+        Unknown = -1,
+        [Display(Name = "Open/Active")]
+        Open = 0,
+        [Display(Name = "Closed")]
+        Closed = 1
     }
 }

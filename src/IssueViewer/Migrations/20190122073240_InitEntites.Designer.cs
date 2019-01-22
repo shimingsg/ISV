@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IssueViewer.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20190117094524_InitializeEntites")]
-    partial class InitializeEntites
+    [Migration("20190122073240_InitEntites")]
+    partial class InitEntites
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,7 +64,7 @@ namespace IssueViewer.Migrations
                     b.Property<string>("RepoIdentier")
                         .IsRequired();
 
-                    b.Property<int?>("State");
+                    b.Property<int>("State");
 
                     b.Property<string>("Title");
 
