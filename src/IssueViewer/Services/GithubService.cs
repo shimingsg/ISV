@@ -20,7 +20,7 @@ namespace IssueViewer.Services
         public GithubService()
         {
             Client = new GitHubClient(new ProductHeaderValue(this.GetType().Name));
-            TokenAuth = new Credentials("a0207cf5b014f1a036437ce6c2b02b0f650af417");
+            TokenAuth = new Credentials("token");
             Client.Credentials = TokenAuth;
         }
 
