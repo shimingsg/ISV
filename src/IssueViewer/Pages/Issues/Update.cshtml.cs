@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace IssueViewer.Pages.Issues
 {
@@ -22,8 +23,9 @@ namespace IssueViewer.Pages.Issues
 
         public UpdateModel(AppDbContext context,
             IGithubService githubservice,
-            IHostingEnvironment env)
-            : base(context)
+            IHostingEnvironment env,
+            ILoggerFactory loggerFactory)
+            : base(context, loggerFactory)
         {
             _githubservice = githubservice;
             _env = env;
@@ -52,6 +54,7 @@ namespace IssueViewer.Pages.Issues
 
         public async Task<IActionResult> OnPostUpdateSelectedAsync()
         {
+            _logger.LogInformation("OnPostUpdateSelectedAsync ...");
             var issues = from m in _context.Issues
                          select m;
 
@@ -70,7 +73,19 @@ namespace IssueViewer.Pages.Issues
 
             foreach (var current in all)
             {
-                var issue = await _githubservice.GetGithubIssueAsync(current.Link);
+                Octokit.Issue issue = null;
+                try
+                {
+                    issue = await _githubservice.GetGithubIssueAsync(current.Link);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError($"error when getting info about {current.Link}");
+                    _logger.LogError(ex.Message);
+                    continue;
+                    throw;
+                }
+
                 if (issue != null)
                 {
                     current.IssueId = issue.Number;
@@ -127,7 +142,7 @@ namespace IssueViewer.Pages.Issues
                              select m;
                 var issuesInDB = await issues.ToListAsync();
                 var except = issuesFromCSV.Except(issuesInDB, new IssueComparer());
-                if(except.Count()>0)
+                if (except.Count() > 0)
                 {
                     foreach (var i in except)
                     {

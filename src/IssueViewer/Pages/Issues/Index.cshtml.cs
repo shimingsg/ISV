@@ -9,13 +9,17 @@ using IssueViewer.Data;
 using IssueViewer.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using IssueViewer.Services;
+using Microsoft.Extensions.Logging;
 
 namespace IssueViewer.Pages.Issues
 {
     public class IndexModel : IVPageModel
     {
         private readonly IGithubService _githubservice;
-        public IndexModel(AppDbContext context, IGithubService githubservice):base(context)
+        public IndexModel(AppDbContext context, 
+            IGithubService githubservice,
+            ILoggerFactory loggerFactory)
+            :base(context, loggerFactory)
         {
             _githubservice = githubservice;
         }

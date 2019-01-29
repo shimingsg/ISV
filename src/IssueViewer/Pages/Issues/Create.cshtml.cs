@@ -8,16 +8,16 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using IssueViewer.Data;
 using IssueViewer.Models;
 using IssueViewer.Services;
+using Microsoft.Extensions.Logging;
 
 namespace IssueViewer.Pages.Issues
 {
-    public class CreateModel : PageModel
+    public class CreateModel : IVPageModel
     {
-        private readonly IssueViewer.Data.AppDbContext _context;
-
-        public CreateModel(IssueViewer.Data.AppDbContext context)
+        public CreateModel(AppDbContext context, 
+            ILoggerFactory loggerFactory)
+            :base(context,loggerFactory)
         {
-            _context = context;
         }
 
         public IActionResult OnGet()

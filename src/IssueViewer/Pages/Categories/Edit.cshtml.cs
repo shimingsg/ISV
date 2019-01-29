@@ -8,12 +8,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IssueViewer.Data;
 using IssueViewer.Models;
+using Microsoft.Extensions.Logging;
 
 namespace IssueViewer.Pages.Categories
 {
     public class EditModel : IVPageModel
     {
-        public EditModel(IssueViewer.Data.AppDbContext context):base(context)
+        public EditModel(IssueViewer.Data.AppDbContext context, 
+            ILoggerFactory loggerFactory) :base(context,loggerFactory)
         {
         }
 

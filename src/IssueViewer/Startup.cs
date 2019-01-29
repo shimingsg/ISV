@@ -12,14 +12,17 @@ using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace IssueViewer
 {
     public class Startup
     {
+        //public ILogger _logger { get; set; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            //_logger = loggerFactory.CreateLogger<GlobalFiltersLogger>();
         }
 
         public IConfiguration Configuration { get; }
@@ -43,7 +46,8 @@ namespace IssueViewer
                      //options.Conventions.AllowAnonymousToPage("/Issues");
                      //options.Conventions.AddPageRoute("/Issues/Index", ""); 
                  })
-                 .AddRazorOptions(options=> {
+                 .AddRazorOptions(options =>
+                 {
                      options.AreaPageViewLocationFormats.Add("/Pages/Partials/{0}.cshtml");
                  });
 

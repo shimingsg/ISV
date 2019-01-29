@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using IssueViewer.Data;
 using IssueViewer.Models;
+using Microsoft.Extensions.Logging;
 
 namespace IssueViewer.Pages.Issues
 {
-    public class DeleteModel : PageModel
+    public class DeleteModel : IVPageModel
     {
-        private readonly IssueViewer.Data.AppDbContext _context;
-
-        public DeleteModel(IssueViewer.Data.AppDbContext context)
+        public DeleteModel(IssueViewer.Data.AppDbContext context,
+            ILoggerFactory loggerFactory)
+            : base(context, loggerFactory)
         {
-            _context = context;
+
         }
 
         [BindProperty]

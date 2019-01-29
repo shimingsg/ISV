@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using IssueViewer.Data;
 using IssueViewer.Models;
+using Microsoft.Extensions.Logging;
 
 namespace IssueViewer.Pages.Issues
 {
-    public class DetailsModel : PageModel
+    public class DetailsModel : IVPageModel
     {
-        private readonly IssueViewer.Data.AppDbContext _context;
-
-        public DetailsModel(IssueViewer.Data.AppDbContext context)
+        public DetailsModel(IssueViewer.Data.AppDbContext context,
+            ILoggerFactory loggerFactory)
+            : base(context, loggerFactory)
         {
-            _context = context;
+       
         }
 
         public Issue Issue { get; set; }

@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using IssueViewer.Data;
 using IssueViewer.Models;
+using Microsoft.Extensions.Logging;
 
 namespace IssueViewer.Pages.Categories
 {
     public class CreateModel : IVPageModel
     {
-        public CreateModel(IssueViewer.Data.AppDbContext context):base(context)
+        public CreateModel(AppDbContext context,
+            ILoggerFactory loggerFactory) : base(context, loggerFactory)
         {
         }
 

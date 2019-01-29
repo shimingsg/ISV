@@ -9,16 +9,17 @@ using Microsoft.EntityFrameworkCore;
 using IssueViewer.Data;
 using IssueViewer.Models;
 using IssueViewer.Services;
+using Microsoft.Extensions.Logging;
 
 namespace IssueViewer.Pages.Issues
 {
     public class EditModel : IVPageModel
     {
-        //private readonly IssueViewer.Data.AppDbContext _context;
-
-        public EditModel(AppDbContext context) : base(context)
+        public EditModel(AppDbContext context,
+            ILoggerFactory loggerFactory) 
+            : base(context, loggerFactory)
         {
-            //_context = context;
+         
         }
 
         [BindProperty]
