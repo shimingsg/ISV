@@ -20,8 +20,12 @@ namespace IssueViewer.Services
         public GithubService()
         {
             Client = new GitHubClient(new ProductHeaderValue(this.GetType().Name));
-            TokenAuth = new Credentials("token");
-            Client.Credentials = TokenAuth;
+            var access_token = Environment.GetEnvironmentVariable("PERSONAL_ACCESS_TOKEN");
+            if(!string.IsNullOrEmpty(access_token))
+            {
+                TokenAuth = new Credentials(access_token);
+                Client.Credentials = TokenAuth;
+            }
         }
 
         public async Task<Issue> GetGithubIssueAsync(string issueFullLink)
