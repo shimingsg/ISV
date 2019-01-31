@@ -1,6 +1,7 @@
 ﻿using IssueViewer.Data;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,12 @@ namespace IssueViewer.Models
     {
         protected readonly AppDbContext _context;
         protected readonly ILogger _logger;
-
-        public IVPageModel(AppDbContext context, ILoggerFactory loggerFactory)
+        protected readonly IConfiguration _config;
+        public IVPageModel(AppDbContext context, ILoggerFactory loggerFactory, IConfiguration config)
         {
             _context = context;
             _logger = loggerFactory.CreateLogger(GetType().ToString());
+            _config = config;
         }
 
         protected bool EntityExists<T>(int id) where T : IVEntity
@@ -26,7 +28,7 @@ namespace IssueViewer.Models
         }
 
         public override Task OnPageHandlerExecutionAsync(
-            PageHandlerExecutingContext context, 
+            PageHandlerExecutingContext context,
             PageHandlerExecutionDelegate next)
         {
             _logger.LogDebug($"OnPageHandlerExecutionAsync {this.GetType().ToString()}");

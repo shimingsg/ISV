@@ -1,25 +1,23 @@
-﻿using System;
+﻿using IssueViewer.Data;
+using IssueViewer.Models;
+using IssueViewer.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using IssueViewer.Data;
-using IssueViewer.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using IssueViewer.Services;
-using Microsoft.Extensions.Logging;
 
 namespace IssueViewer.Pages.Issues
 {
     public class IndexModel : IVPageModel
     {
         private readonly IGithubService _githubservice;
-        public IndexModel(AppDbContext context, 
-            IGithubService githubservice,
-            ILoggerFactory loggerFactory)
-            :base(context, loggerFactory)
+        public IndexModel(AppDbContext context, IGithubService githubservice, ILoggerFactory loggerFactory, IConfiguration config)
+            : base(context, loggerFactory, config)
         {
             _githubservice = githubservice;
         }
@@ -47,7 +45,7 @@ namespace IssueViewer.Pages.Issues
                 }
             }
 
-            if(!string.IsNullOrEmpty(SearchIssueId))
+            if (!string.IsNullOrEmpty(SearchIssueId))
             {
                 var searchIssueId = Convert.ToInt32(SearchIssueId);
                 if (searchIssueId >= 0)
@@ -60,7 +58,7 @@ namespace IssueViewer.Pages.Issues
 
             Issue = await issues.Include(i => i.Category).ToListAsync();
 
-            SelectingCategories = 
+            SelectingCategories =
                 await _context.Categories.Select(a =>
                                                 new SelectListItem
                                                 {

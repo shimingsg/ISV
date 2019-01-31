@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using IssueViewer.Data;
+using IssueViewer.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using IssueViewer.Data;
-using IssueViewer.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 
 namespace IssueViewer.Pages.Categories
 {
     public class EditModel : IVPageModel
     {
-        public EditModel(IssueViewer.Data.AppDbContext context, 
-            ILoggerFactory loggerFactory) :base(context,loggerFactory)
+        public EditModel(AppDbContext context, ILoggerFactory loggerFactory, IConfiguration config)
+            : base(context, loggerFactory, config)
         {
         }
 
@@ -36,7 +34,7 @@ namespace IssueViewer.Pages.Categories
             {
                 return NotFound();
             }
-           ViewData["ParentId"] = new SelectList(_context.Categories, "Id", "Name");
+            ViewData["ParentId"] = new SelectList(_context.Categories, "Id", "Name");
             return Page();
         }
 

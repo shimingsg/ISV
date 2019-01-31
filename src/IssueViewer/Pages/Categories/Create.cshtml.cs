@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using IssueViewer.Data;
+﻿using IssueViewer.Data;
 using IssueViewer.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 
 namespace IssueViewer.Pages.Categories
 {
     public class CreateModel : IVPageModel
     {
-        public CreateModel(AppDbContext context,
-            ILoggerFactory loggerFactory) : base(context, loggerFactory)
+        public CreateModel(AppDbContext context, ILoggerFactory loggerFactory, IConfiguration config)
+            : base(context, loggerFactory, config)
         {
         }
 

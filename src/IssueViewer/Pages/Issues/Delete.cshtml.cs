@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using IssueViewer.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using IssueViewer.Data;
-using IssueViewer.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace IssueViewer.Pages.Issues
 {
     public class DeleteModel : IVPageModel
     {
-        public DeleteModel(IssueViewer.Data.AppDbContext context,
-            ILoggerFactory loggerFactory)
-            : base(context, loggerFactory)
+        public DeleteModel(IssueViewer.Data.AppDbContext context, ILoggerFactory loggerFactory, IConfiguration config)
+            : base(context, loggerFactory, config)
         {
 
         }

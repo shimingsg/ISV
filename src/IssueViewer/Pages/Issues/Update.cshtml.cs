@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using IssueViewer.Data;
+﻿using IssueViewer.Data;
 using IssueViewer.Models;
 using IssueViewer.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace IssueViewer.Pages.Issues
 {
@@ -21,11 +21,8 @@ namespace IssueViewer.Pages.Issues
         private readonly IGithubService _githubservice;
         private IHostingEnvironment _env;
 
-        public UpdateModel(AppDbContext context,
-            IGithubService githubservice,
-            IHostingEnvironment env,
-            ILoggerFactory loggerFactory)
-            : base(context, loggerFactory)
+        public UpdateModel(AppDbContext context, IGithubService githubservice, IHostingEnvironment env, ILoggerFactory loggerFactory, IConfiguration config)
+            : base(context, loggerFactory, config)
         {
             _githubservice = githubservice;
             _env = env;

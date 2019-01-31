@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using IssueViewer.Data;
+﻿using IssueViewer.Data;
 using IssueViewer.Models;
 using IssueViewer.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading.Tasks;
 
 namespace IssueViewer.Pages.Issues
 {
     public class EditModel : IVPageModel
     {
-        public EditModel(AppDbContext context,
-            ILoggerFactory loggerFactory) 
-            : base(context, loggerFactory)
+        public EditModel(AppDbContext context, ILoggerFactory loggerFactory, IConfiguration config)
+            : base(context, loggerFactory, config)
         {
-         
+
         }
 
         [BindProperty]

@@ -8,23 +8,29 @@ using Microsoft.EntityFrameworkCore;
 using IssueViewer.Data;
 using IssueViewer.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace IssueViewer.Pages.Categories
 {
-    public class IndexModel : IVPageModel
+    public class IndexModel : IVPaginationModel
     {
-        public IndexModel(IssueViewer.Data.AppDbContext context,
-            ILoggerFactory loggerFactory) : base(context,loggerFactory)
+        public IndexModel(AppDbContext context, ILoggerFactory loggerFactory, IConfiguration config)
+            : base(context, loggerFactory,config)
         {
-
+            //PageSize = config.GetValue()
         }
 
         public IList<Category> Category { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(int? currentPage)
         {
+            CurrentPage = currentPage ?? 1;
+            await UpdatePageVariablesAsync<Category>();
             Category = await _context.Categories
-                .Include(c => c.Parent).ToListAsync();
+                .Skip((CurrentPage - 1) * PageSize)
+                .Take(PageSize)
+                .Include(t => t.Parent)
+                .ToListAsync();
         }
     }
 }
