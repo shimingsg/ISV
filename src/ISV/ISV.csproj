@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Partials\**" />
+    <Content Remove="Pages\Partials\**" />
+    <EmbeddedResource Remove="Pages\Partials\**" />
+    <None Remove="Pages\Partials\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CsvHelper" Version="12.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
@@ -19,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Partials\" />
     <Folder Include="wwwroot\output\" />
   </ItemGroup>
 

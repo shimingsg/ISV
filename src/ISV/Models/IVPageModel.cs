@@ -12,6 +12,7 @@ namespace ISV.Models
 {
     public class IVPageModel : PageModel
     {
+        public string Title { get; set; }
         protected readonly AppDbContext _context;
         protected readonly ILogger _logger;
         protected readonly IConfiguration _config;

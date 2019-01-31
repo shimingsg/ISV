@@ -15,6 +15,7 @@ namespace ISV.Pages.Categories
         public EditModel(AppDbContext context, ILoggerFactory loggerFactory, IConfiguration config)
             : base(context, loggerFactory, config)
         {
+            Title = "Edit - Category";
         }
 
         [BindProperty]

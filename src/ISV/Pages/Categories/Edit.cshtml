@@ -2,32 +2,27 @@
 @model ISV.Pages.Categories.EditModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = Model.Title;
 }
 
-<h2>Edit</h2>
-
-<h4>Category</h4>
+<h2>@Model.Title</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Category.ParentId" class="control-label"></label>
                 <select asp-for="Category.ParentId" class="form-control" asp-items="ViewBag.ParentId">
                     <option value="">--</option>
                 </select>
                 <span asp-validation-for="Category.ParentId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Category.Name" class="control-label"></label>
-                <input asp-for="Category.Name" class="form-control" />
+                <input asp-for="Category.Name" class="form-control" placeholder="Name"/>
                 <span asp-validation-for="Category.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Category.Description" class="control-label"></label>
-                <input asp-for="Category.Description" class="form-control" />
+                <input asp-for="Category.Description" class="form-control" placeholder="Description"/>
                 <span asp-validation-for="Category.Description" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Category.Id" />

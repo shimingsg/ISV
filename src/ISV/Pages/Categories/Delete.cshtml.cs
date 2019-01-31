@@ -13,6 +13,7 @@ namespace ISV.Pages.Categories
         public DeleteModel(AppDbContext context, ILoggerFactory loggerFactory, IConfiguration config)
             : base(context, loggerFactory, config)
         {
+            Title = "Delete Category - Confirm";
         }
 
         [BindProperty]

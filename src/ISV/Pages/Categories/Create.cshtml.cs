@@ -14,6 +14,7 @@ namespace ISV.Pages.Categories
         public CreateModel(AppDbContext context, ILoggerFactory loggerFactory, IConfiguration config)
             : base(context, loggerFactory, config)
         {
+            this.Title = "Create - Category";
         }
 
         public IActionResult OnGet()

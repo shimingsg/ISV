@@ -14,7 +14,7 @@ namespace ISV.Pages.Categories
         public IndexModel(AppDbContext context, ILoggerFactory loggerFactory, IConfiguration config)
             : base(context, loggerFactory,config)
         {
-            //PageSize = config.GetValue()
+            Title = "Category - List";
         }
 
         public IList<Category> Category { get; set; }

@@ -13,6 +13,7 @@ namespace ISV.Pages.Categories
         public DetailsModel(AppDbContext context, ILoggerFactory loggerFactory, IConfiguration config) 
             : base(context, loggerFactory, config)
         {
+            Title = "Detail - Category";
         }
 
         public Category Category { get; set; }
