@@ -1,0 +1,35 @@
+﻿@page "{handler?}"
+@model ISV.Pages.Issues.UpdateModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<form method="post" enctype="multipart/form-data">
+    <div class="table">
+        @Html.ValidationSummary()
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <select asp-for="SelectedCategoryId" asp-items="Model.SelectingCategories">
+                    <option value="">All</option>
+                </select>
+            </div>
+            <button type="submit" asp-page-handler="UpdateSelected">UpdateIssues</button>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4">
+                <input type="file" asp-for="FileUpload" class="form-control" />
+            </div>
+            <button type="submit" asp-page-handler="Import">Import</button>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-4"></div>
+            <button type="submit" asp-page-handler="Export">Export</button>
+        </div>
+    </div>
+</form>
