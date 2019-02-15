@@ -2,10 +2,10 @@
 @model ISV.Pages.Issues.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = Model.Title;
 }
 
-<h2>Index</h2>
+<h2>@Model.Title</h2>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -58,40 +58,94 @@
     <tbody>
         @foreach (var item in Model.Issue)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RepoIdentier)
-            </td>
-            <td>
-                <a href="@item.Link">@Html.DisplayFor(modelItem => item.IssueId)</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShortTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IssueCreatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IssueLastUpdatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IssueClosedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.State)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastUpdatedAt)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RepoIdentier)
+                </td>
+                <td>
+                    <a href="@item.Link">@Html.DisplayFor(modelItem => item.IssueId)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShortTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IssueCreatedAt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IssueLastUpdatedAt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IssueClosedAt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.State)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastUpdatedAt)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+<div>
+    <ul class="pagination">
+        <li class="page-item @(!Model.ShowFirst ? "disabled" : "")">
+            @{
+                if (Model.ShowFirst)
+                {
+                    <a asp-page="./Index" asp-route-CurrentPage="1" class="page-link"><<</a>
+                }
+                else
+                {
+                    <a class="page-link"><</a>
+                }
+            }
+        </li>
+        <li class="page-item @(!Model.ShowPrevious ? "disabled" : "")">
+            @{
+                if (Model.ShowPrevious)
+                {
+                    <a asp-page="./Index" asp-route-CurrentPage="@(Model.CurrentPage -1)" class="page-link"><</a>
+                }
+                else
+                {
+                    <a class="page-link"><</a>
+                }
+            }
+        </li>
+        <li class="page-item  @(!Model.ShowNext? "disabled":"")">
+
+            @{
+                if (Model.ShowNext)
+                {
+                    <a asp-page="./Index" asp-route-CurrentPage="@(Model.CurrentPage + 1)" class="page-link">></a>
+                }
+                else
+                {
+                    <a class="page-link">></a>
+                }
+            }
+        </li>
+        <li class="page-item  @(!Model.ShowLast? "disabled":"")">
+
+            @{
+                if (Model.ShowLast)
+                {
+                    <a asp-page="./Index" asp-route-CurrentPage="@Model.TotalPages" class="page-link">>></a>
+                }
+                else
+                {
+                    <a class="page-link">>></a>
+                }
+            }
+        </li>
+    </ul>
+</div>
