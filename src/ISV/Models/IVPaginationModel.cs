@@ -27,13 +27,19 @@ namespace ISV.Models
 
         }
 
-        protected async Task UpdatePageVariablesAsync<T>() where T : IVEntity
+        protected async Task UpdatePageVariablesAsync<T>(IQueryable<T> query) where T : IVEntity
         {
-            Count = await _context.Set<T>().CountAsync();
+            Count = await query.CountAsync();
+            //Count = await _context.Set<T>().CountAsync();
             TotalPages = (int)Math.Ceiling(decimal.Divide(Count, PageSize));
             if (CurrentPage > TotalPages)
                 CurrentPage = TotalPages;
             else if (CurrentPage <= 0) CurrentPage = 1;
+        }
+
+        protected async Task UpdatePageVariablesAsync<T>() where T : IVEntity
+        {
+            await UpdatePageVariablesAsync(_context.Set<T>());
         }
     }
 }

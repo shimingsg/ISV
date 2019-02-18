@@ -35,7 +35,7 @@ namespace ISV.Pages.Issues
 
         public async Task OnGetAsync(int? currentPage)
         {
-            var issues = from m in _context.Issues
+            var query = from m in _context.Issues
                          select m;
             if (!string.IsNullOrEmpty(SelectedCategoryId))
             {
@@ -45,10 +45,10 @@ namespace ISV.Pages.Issues
                 {
                     var children = await GetCategoryChildren(categoryId);
                     if (children.Count == 0)
-                        issues = issues.Where(s => s.CategoryId == categoryId);
+                        query = query.Where(s => s.CategoryId == categoryId);
                     else
                     {
-                        issues = issues.Where(x => children.Any(s => s.Id == x.CategoryId) || x.CategoryId == categoryId);
+                        query = query.Where(x => children.Any(s => s.Id == x.CategoryId) || x.CategoryId == categoryId);
                     }
                 }
             }
@@ -58,16 +58,16 @@ namespace ISV.Pages.Issues
                 var searchIssueId = Convert.ToInt32(SearchIssueId);
                 if (searchIssueId >= 0)
                 {
-                    issues = issues.Where(s => s.IssueId == searchIssueId);
+                    query = query.Where(s => s.IssueId == searchIssueId);
                 }
             }
 
             CurrentPage = currentPage ?? 1;
-            await UpdatePageVariablesAsync<Issue>();
-            issues = issues.OrderByDescending(s => s.LastUpdatedAt)
+            await UpdatePageVariablesAsync<Issue>(query);
+            query = query.OrderByDescending(s => s.LastUpdatedAt)
                             .Skip((CurrentPage - 1) * PageSize)
                             .Take(PageSize);
-            Issue = await issues.Include(i => i.Category).ToListAsync();
+            Issue = await query.Include(i => i.Category).ToListAsync();
 
             SelectingCategories =
                 await _context.Categories.Select(a =>
