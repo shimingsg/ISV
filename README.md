@@ -1,9 +1,10 @@
+# Life
+## Life
+### Life
 
-##Life
-
->Life is tool short to wake up in the morning with regrets.
->So love the people who treat you right
->And forget about the ones who don't 
+```Life is tool short to wake up in the morning with regrets.```
+```So love the people who treat you right```
+```And forget about the ones who don't ```
 >And belivev that everything happens for a reason
 >if you get a chance, take it
 >if it changes your life, let it
